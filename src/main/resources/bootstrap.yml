@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: bt-ms-transfers
+  cloud:
+    config:
+      uri: http://localhost:9001
+      profile: dev
+      enabled: true
