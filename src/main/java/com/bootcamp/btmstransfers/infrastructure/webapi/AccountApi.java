@@ -1,5 +1,6 @@
 package com.bootcamp.btmstransfers.infrastructure.webapi;
 
+import com.bootcamp.btmstransfers.client.model.AccountClient;
 import com.bootcamp.btmstransfers.client.model.AccountUpdateBalanceClient;
 import com.bootcamp.btmstransfers.infrastructure.iwebapi.IAccountApi;
 import lombok.RequiredArgsConstructor;
@@ -34,4 +35,11 @@ public class AccountApi implements IAccountApi {
                 });
     }
 
+    public Mono<AccountClient> getAccountInformation(String accountInstance, String accountId){
+        return clientBuilder.build().get()
+                .uri(accountInstance + "/api/accounts/{accountId}", accountId)
+                .retrieve()
+                .bodyToMono(AccountClient.class)
+                .log();
+    }
 }

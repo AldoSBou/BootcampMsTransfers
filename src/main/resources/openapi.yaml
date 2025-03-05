@@ -1,0 +1,155 @@
+openapi: 3.0.0
+info:
+  title: API de Transferencias # Título de la API en español
+  version: 1.0.0
+servers:
+  - url: http://localhost:8084 # Puedes ajustar la URL base según tu configuración
+
+paths:
+  /transfers/local: # Path en inglés
+    post:
+      summary: Transferencia entre cuentas propias # Resumen en español
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OwnTransferRequestDTO' # Schema en inglés
+      responses:
+        '200':
+          description: Transferencia exitosa # Descripción en español
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferResponseDTO' # Schema en inglés
+        '400':
+          description: Solicitud incorrecta # Descripción en español
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse' # Schema en inglés
+        '500':
+          description: Error interno del servidor # Descripción en español
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse' # Schema en inglés
+
+  /transfers/others: # Path en inglés (se usa guión para separar palabras en paths)
+    post:
+      summary: Transferencia a cuentas de terceros # Resumen en español
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ThirdPartyTransferRequestDTO' # Schema en inglés
+      responses:
+        '200':
+          description: Transferencia exitosa # Descripción en español
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferResponseDTO' # Schema en inglés
+        '400':
+          description: Solicitud incorrecta # Descripción en español
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse' # Schema en inglés
+        '500':
+          description: Error interno del servidor # Descripción en español
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse' # Schema en inglés
+
+components:
+  schemas:
+    OwnTransferRequestDTO: # Schema en inglés
+      type: object
+      required:
+        - originAccount # Propiedad en inglés
+        - destinationAccount # Propiedad en inglés
+        - amount # Propiedad en inglés
+        - transactionDate # Propiedad en inglés
+      properties:
+        originAccount: # Propiedad en inglés
+          type: string
+          description: Número de cuenta de origen # Descripción en español
+          example: "1234567890"
+        destinationAccount: # Propiedad en inglés
+          type: string
+          description: Número de cuenta de destino (propia) # Descripción en español
+          example: "0987654321"
+        amount: # Propiedad en inglés
+          type: number
+          format: decimal
+          description: Monto a transferir # Descripción en español
+          example: 100.50
+        transactionDate: # Propiedad en inglés
+          type: string
+          description: Fecha y hora de la transacción (en formato ISO 8601) # Descripción en español
+          example: "2024-07-20T14:30:00Z"
+        concept: # Propiedad en inglés
+          type: string
+          description: Concepto o descripción de la transferencia (opcional) # Descripción en español
+          example: "Pago de servicios"
+
+    ThirdPartyTransferRequestDTO: # Schema en inglés
+      type: object
+      required:
+        - originAccount # Propiedad en inglés
+        - destinationAccount # Propiedad en inglés
+        - amount # Propiedad en inglés
+        - transactionDate # Propiedad en inglés
+      properties:
+        originAccount: # Propiedad en inglés
+          type: string
+          description: Número de cuenta de origen # Descripción en español
+          example: "1112223334"
+        destinationAccount: # Propiedad en inglés
+          type: string
+          description: Número de cuenta de destino (terceros) # Descripción en español
+          example: "5556667778"
+        amount: # Propiedad en inglés
+          type: number
+          format: decimal
+          description: Monto a transferir # Descripción en español
+          example: 50.00
+        transactionDate: # Propiedad en inglés
+          type: string
+          description: Fecha y hora de la transacción (en formato ISO 8601) # Descripción en español
+          example: "2024-07-21T09:00:00Z"
+        concept: # Propiedad en inglés
+          type: string
+          description: Concepto o descripción de la transferencia (opcional) # Descripción en español
+          example: "Pago de factura"
+
+    TransferResponseDTO: # Schema en inglés
+      type: object
+      properties:
+        transactionId: # Propiedad en inglés
+          type: string
+          description: Identificador único de la transacción # Descripción en español
+          example: "TXN-20240720-123456"
+        status: # Propiedad en inglés
+          type: string
+          description: Descripción en español
+          example: "EXITOSO"
+        message: # Propiedad en inglés
+          type: string
+          description: Mensaje descriptivo sobre la transacción # Descripción en español
+          example: "Transferencia realizada con éxito."
+
+    ErrorResponse: # Schema en inglés
+      type: object
+      properties:
+        errorCode: # Propiedad en inglés
+          type: string
+          description: Código de error # Descripción en español
+          example: "ERR-4001"
+        message: # Propiedad en inglés
+          type: string
+          description: Descripción del error # Descripción en español
+          example: "Cuenta de origen inválida."

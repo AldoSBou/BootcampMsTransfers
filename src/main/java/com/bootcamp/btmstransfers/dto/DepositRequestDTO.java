@@ -23,7 +23,7 @@ public class DepositRequestDTO {
 
     @NotNull(message = "El amount es obligatorio")
     @Positive(message = "El amount debe ser positivo")
-    private BigDecimal amount;
+    private Double amount;
 
     private String description; // Descripción opcional del depósito
     private String channel;     // Canal del depósito (opcional)

@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -29,14 +28,26 @@ public class Transfer {
     private String movementType;
 
     @Field("amount")
-    private BigDecimal amount;
+    private Double amount;
 
     @Field("movementDate")
-    private LocalDateTime movementDate;
+    private String movementDate;
 
     @Field("description") // Descripción del movimiento (opcional)
     private String description;
 
     @Field("channel") // Canal por el cual se realizó el movimiento (ej., "WEB", "ATM", "BRANCH") - opcional
     private String channel;
+
+    @Field("commission")
+    private Double commission;
+
+    @Field("accountBalance")
+
+    private Double accountBalance;
+
+    @Field("accountingBalance")
+
+    private Double accountingBalance;
+
 }
